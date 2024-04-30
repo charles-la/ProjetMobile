@@ -40,15 +40,14 @@
             android:id="@+id/radioButtonCandidate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Candidat"
-            android:checked="true" />
+            android:text="Candidat" />
 
         <RadioButton
             android:id="@+id/radioButtonEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Employe" />
+            android:text="Employeur" />
 
     </RadioGroup>
 
@@ -63,7 +62,8 @@
         android:text="Nom"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/nom_edit_text"
@@ -75,7 +75,8 @@
         android:background="@drawable/rounded_corner"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:visibility="gone" />
 
     <!-- Champ pour saisir le prénom -->
     <TextView
@@ -88,7 +89,8 @@
         android:text="Prénom"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/prenom_edit_text"
@@ -100,7 +102,34 @@
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
         android:background="@drawable/rounded_corner"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/nationalite_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/prenom_edit_text"
+        android:text="Nationalite"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/nationalite_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nationalite"
+        android:layout_below="@id/nationalite_label"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColorHint="@color/black"
+        android:background="@drawable/rounded_corner"
+        android:padding="10dp"
+        android:visibility="gone" />
 
     <!-- Champ pour saisir la date de naissance -->
     <TextView
@@ -109,11 +138,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/prenom_edit_text"
+        android:layout_below="@id/nationalite_edit_text"
         android:text="Date de naissance"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/date_naissance_edit_text"
@@ -125,11 +155,12 @@
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
         android:background="@drawable/rounded_corner"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:visibility="gone" />
 
     <!-- Champ pour saisir le numéro de téléphone -->
     <TextView
-        android:id="@+id/num_label"
+        android:id="@+id/telephone_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -138,19 +169,21 @@
         android:text="Numéro de téléphone"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/telephone_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Numéro de téléphone"
-        android:layout_below="@id/num_label"
+        android:layout_below="@id/telephone_label"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
         android:background="@drawable/rounded_corner"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:visibility="gone" />
 
     <!-- Champ pour saisir l'adresse e-mail -->
     <TextView
@@ -163,7 +196,8 @@
         android:text="Adresse e-mail"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/email_edit_text"
@@ -175,7 +209,86 @@
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
         android:background="@drawable/rounded_corner"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/ville_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/email_edit_text"
+        android:text="Ville"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/ville_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ville"
+        android:layout_below="@id/adresse_label"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColorHint="@color/black"
+        android:background="@drawable/rounded_corner"
+        android:padding="10dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/commentaire_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/ville_edit_text"
+        android:text="Commentaire"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/commentaire_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Commentaire"
+        android:layout_below="@id/adresse_label"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColorHint="@color/black"
+        android:background="@drawable/rounded_corner"
+        android:padding="10dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/password_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/ville_edit_text"
+        android:text="Password"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/password_text_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_below="@id/adresse_label"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColorHint="@color/black"
+        android:background="@drawable/rounded_corner"
+        android:padding="10dp"
+        android:visibility="gone" />
 
     <!-- Bouton pour soumettre les données -->
     <Button
@@ -191,7 +304,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentLeft="true"
 
-        android:layout_below="@id/email_edit_text" />
+        android:layout_below="@id/email_edit_text"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "808501285271",
+    "project_id": "projet-mobile-montpel",
+    "storage_bucket": "projet-mobile-montpel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808501285271:android:21c7ac36f70edec18a34d2",
+        "android_client_info": {
+          "package_name": "com.example.projet_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfiXMZwH3K28xhHi_TeefaUKRKZT0kbY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

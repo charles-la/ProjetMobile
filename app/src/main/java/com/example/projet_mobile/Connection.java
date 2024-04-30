@@ -12,11 +12,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.Manifest;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class Connection extends AppCompatActivity {
 
     private static final int REQUEST_LOCATION = 1;
-
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private AuthentificateurHelper authHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +30,15 @@ public class Connection extends AppCompatActivity {
         Button buttonAnonyme = findViewById(R.id.anonyme_button);
         Button buttonAccountCreation = findViewById(R.id.account_creation_button);
 
+        authHelper = new AuthentificateurHelper();
+
+        // Get Email
+        emailEditText = findViewById(R.id.email_edit_text);
+        // Get Password
+        passwordEditText = findViewById(R.id.mot_de_passe_edit_text);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 showExplanationDialog();
             } else {
@@ -46,7 +54,23 @@ public class Connection extends AppCompatActivity {
             // Ajouter des verifications avec la base de donnees pour voir si lutilisateur existe
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Connection.this, AccueilCandidat.class));
+                String userEmail = emailEditText.getText().toString();
+                String userPassword = passwordEditText.getText().toString();
+
+                authHelper.verifyUserCredentials(userEmail, userPassword, new AuthCallback() {
+                    @Override
+                    public void onSuccess() {
+                        // Logic when login is successful
+                        Toast.makeText(getApplicationContext(), "Connection successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Connection.this, AccueilCandidat.class));
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        // Logic when login fails, handle error message
+                        Toast.makeText(getApplicationContext(), "Connection fail", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
