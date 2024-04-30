@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <!-- Label for TP3 -->
     <TextView
         android:id="@+id/title_label"
@@ -51,261 +50,270 @@
 
     </RadioGroup>
 
-    <!-- Champ pour saisir le nom -->
-    <TextView
-        android:id="@+id/name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_below="@id/type_checkbox"
-        android:layout_marginTop="40dp"
-        android:text="Nom"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/nom_edit_text"
+    <!-- ScrollView starts just under the RadioGroup -->
+    <ScrollView
+        android:id="@+id/scrollable_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name_label"
-        android:hint="Nom"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:padding="10dp"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/type_checkbox">
 
-    <!-- Champ pour saisir le prénom -->
-    <TextView
-        android:id="@+id/prenom_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/nom_edit_text"
-        android:text="Prénom"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- Champ pour saisir le nom -->
+            <TextView
+                android:id="@+id/name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:text="Nom"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/prenom_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Prénom"
-        android:layout_below="@id/prenom_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/nom_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_label"
+                android:hint="Nom"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/nationalite_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/prenom_edit_text"
-        android:text="Nationalite"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <!-- Champ pour saisir le prénom -->
+            <TextView
+                android:id="@+id/prenom_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/nom_edit_text"
+                android:text="Prénom"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/nationalite_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nationalite"
-        android:layout_below="@id/nationalite_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/prenom_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Prénom"
+                android:layout_below="@id/prenom_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <!-- Champ pour saisir la date de naissance -->
-    <TextView
-        android:id="@+id/date_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/nationalite_edit_text"
-        android:text="Date de naissance"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <TextView
+                android:id="@+id/nationalite_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/prenom_edit_text"
+                android:text="Nationalite"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/date_naissance_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Date de naissance"
-        android:layout_below="@id/date_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/nationalite_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nationalite"
+                android:layout_below="@id/nationalite_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <!-- Champ pour saisir le numéro de téléphone -->
-    <TextView
-        android:id="@+id/telephone_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/date_naissance_edit_text"
-        android:text="Numéro de téléphone"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <!-- Champ pour saisir la date de naissance -->
+            <TextView
+                android:id="@+id/date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/nationalite_edit_text"
+                android:text="Date de naissance"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/telephone_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Numéro de téléphone"
-        android:layout_below="@id/telephone_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/date_naissance_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date de naissance"
+                android:layout_below="@id/date_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <!-- Champ pour saisir l'adresse e-mail -->
-    <TextView
-        android:id="@+id/adresse_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/telephone_edit_text"
-        android:text="Adresse e-mail"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <!-- Champ pour saisir le numéro de téléphone -->
+            <TextView
+                android:id="@+id/telephone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/date_naissance_edit_text"
+                android:text="Numéro de téléphone"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/email_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Adresse e-mail"
-        android:layout_below="@id/adresse_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/telephone_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Numéro de téléphone"
+                android:layout_below="@id/telephone_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/ville_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/email_edit_text"
-        android:text="Ville"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <!-- Champ pour saisir l'adresse e-mail -->
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/telephone_edit_text"
+                android:text="Adresse e-mail"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/ville_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ville"
-        android:layout_below="@id/adresse_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Adresse e-mail"
+                android:layout_below="@id/email_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/commentaire_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/ville_edit_text"
-        android:text="Commentaire"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <TextView
+                android:id="@+id/ville_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/email_edit_text"
+                android:text="Ville"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/commentaire_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Commentaire"
-        android:layout_below="@id/adresse_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/ville_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ville"
+                android:layout_below="@id/ville_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/password_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/ville_edit_text"
-        android:text="Password"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <TextView
+                android:id="@+id/commentaire_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/ville_edit_text"
+                android:text="Commentaire"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/password_text_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:layout_below="@id/adresse_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/commentaire_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Commentaire"
+                android:layout_below="@id/commentaire_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-    <!-- Bouton pour soumettre les données -->
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Creation"
-        android:backgroundTint="#000000"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
+            <TextView
+                android:id="@+id/password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/commentaire_edit_text"
+                android:text="Password"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-        android:layout_below="@id/email_edit_text"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:layout_below="@id/password_label"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/black"
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp"
+                android:visibility="gone" />
 
+            <!-- Bouton pour soumettre les données -->
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Creation"
+                android:backgroundTint="#000000"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/password_edit_text"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

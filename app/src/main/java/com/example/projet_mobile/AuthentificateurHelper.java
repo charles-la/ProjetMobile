@@ -8,7 +8,7 @@ public class AuthentificateurHelper {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public void verifyUserCredentials(String email, String password, AuthCallback callback) {
-        db.collection("candidat")
+        db.collection("users")
                 .whereEqualTo("email", email)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -17,20 +17,28 @@ public class AuthentificateurHelper {
                         if (querySnapshot != null && !querySnapshot.isEmpty()) {
                             for (QueryDocumentSnapshot document : querySnapshot) {
                                 String storedPassword = document.getString("password");
+                                String userType = document.getString("typeUtilisateur");
                                 if (storedPassword != null && storedPassword.equals(password)) {
-                                    // Le mot de passe correspond, l'utilisateur peut se connecter
-                                    callback.onSuccess();
+                                    // Check user type and call the appropriate onSuccess method
+                                    if ("Candidat".equals(userType)) {
+                                        callback.onSuccessCandidat();
+                                    } else if ("Employeur".equals(userType)) {
+                                        callback.onSuccessEmployeur();
+                                    } else {
+                                        // User type is neither Candidat nor Employeur or is undefined
+                                        callback.onFailure("User type is undefined or incorrect.");
+                                    }
                                 } else {
-                                    // Le mot de passe ne correspond pas
+                                    // The password does not match
                                     callback.onFailure("Incorrect password");
                                 }
                             }
                         } else {
-                            // Aucun document correspondant à l'e-mail
+                            // No document found with the provided email
                             callback.onFailure("Email does not exist");
                         }
                     } else {
-                        // Échec de la requête, gérer l'erreur
+                        // Failed to query the database
                         callback.onFailure("Failed to query database: " + task.getException().getMessage());
                     }
                 });

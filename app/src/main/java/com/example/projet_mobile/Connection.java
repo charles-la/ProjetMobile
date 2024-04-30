@@ -59,10 +59,14 @@ public class Connection extends AppCompatActivity {
 
                 authHelper.verifyUserCredentials(userEmail, userPassword, new AuthCallback() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccessCandidat() {
                         // Logic when login is successful
-                        Toast.makeText(getApplicationContext(), "Connection successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Connection candidat successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Connection.this, AccueilCandidat.class));
+                    }
+                    public void onSuccessEmployeur() {
+                        // Logic when login is successful
+                        Toast.makeText(getApplicationContext(), "Connection employeur successful", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
