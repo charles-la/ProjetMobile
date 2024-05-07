@@ -67,6 +67,7 @@ public class Connection extends AppCompatActivity {
                     public void onSuccessEmployeur() {
                         // Logic when login is successful
                         Toast.makeText(getApplicationContext(), "Connection employeur successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Connection.this, AccueilEmployeur.class));
                     }
 
                     @Override

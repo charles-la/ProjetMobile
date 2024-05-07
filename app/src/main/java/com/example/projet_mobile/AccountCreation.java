@@ -41,6 +41,25 @@ public class AccountCreation extends AppCompatActivity {
     private int selectedId;
     private RadioButton selectedRadioButton;
 
+    // Entreprise
+
+    private TextView nomEntrepriseLabel;
+    private EditText nomEntrepriseEditText;
+    private TextView numEmployeurLabel;
+    private EditText numEmployeurEditText;
+    private TextView emailEmployeurLabel;
+    private EditText emailEmployeurEditText;
+    private TextView adresseEmployeurLabel;
+    private EditText adresseEmployeurEditText;
+    private TextView villeEmployeurLabel;
+    private TextView villeEmployeurEditText;
+    private TextView liensPublicsEmployeurLabel;
+    private TextView liensPublicsEmployeurEditText;
+    private EditText passwordEmployeurEditText;
+    private TextView passwordEmployeurLabel;
+    private Button submitEmployeurButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +84,23 @@ public class AccountCreation extends AppCompatActivity {
         commentaireEditText = findViewById(R.id.commentaire_edit_text);
         passwordLabel = findViewById(R.id.password_label);
         passwordEditText = findViewById(R.id.password_edit_text);
-
         submitButton = findViewById(R.id.submit_button);
 
+        nomEntrepriseLabel = findViewById(R.id.nom_entreprise_label);
+        nomEntrepriseEditText = findViewById(R.id.nom_entreprise_edit_text);
+        numEmployeurLabel = findViewById(R.id.telephone_employeur_label);
+        numEmployeurEditText = findViewById(R.id.telephone_employeur_edit_text);
+        emailEmployeurLabel = findViewById(R.id.mail_employeur_label);
+        emailEmployeurEditText = findViewById(R.id.mail_employeur_edit_text);
+        adresseEmployeurLabel = findViewById(R.id.adresse_employeur_label);
+        adresseEmployeurEditText = findViewById(R.id.adresse_employeur_edit_text);
+        villeEmployeurLabel = findViewById(R.id.ville_employeur_label);
+        villeEmployeurEditText = findViewById(R.id.ville_employeur_edit_text);
+        liensPublicsEmployeurLabel = findViewById(R.id.liens_publics_employeur_label);
+        liensPublicsEmployeurEditText = findViewById(R.id.liens_publics_employeur_edit_text);
+        passwordEmployeurLabel = findViewById(R.id.password_employeur_label);
+        passwordEmployeurEditText = findViewById(R.id.password_employeur_edit_text);
+        submitEmployeurButton = findViewById(R.id.submit_employeur_button);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -92,6 +125,24 @@ public class AccountCreation extends AppCompatActivity {
                     passwordLabel.setVisibility(View.VISIBLE);
                     passwordEditText.setVisibility(View.VISIBLE);
                     submitButton.setVisibility(View.VISIBLE);
+
+                    nomEntrepriseLabel.setVisibility(View.GONE);
+                    nomEntrepriseEditText.setVisibility(View.GONE);
+                    numEmployeurLabel.setVisibility(View.GONE);
+                    numEmployeurEditText.setVisibility(View.GONE);
+                    emailEmployeurLabel.setVisibility(View.GONE);
+                    emailEmployeurEditText.setVisibility(View.GONE);
+                    adresseEmployeurLabel.setVisibility(View.GONE);
+                    adresseEmployeurEditText.setVisibility(View.GONE);
+                    villeEmployeurLabel.setVisibility(View.GONE);
+                    villeEmployeurEditText.setVisibility(View.GONE);
+                    liensPublicsEmployeurLabel.setVisibility(View.GONE);
+                    liensPublicsEmployeurEditText.setVisibility(View.GONE);
+                    passwordEmployeurLabel.setVisibility(View.GONE);
+                    passwordEmployeurEditText.setVisibility(View.GONE);
+                    submitEmployeurButton.setVisibility(View.GONE);
+
+
                 } else if (checkedId == R.id.radioButtonEmployee) {
                     nomEditText.setVisibility(View.GONE);
                     nomLabel.setVisibility(View.GONE);
@@ -111,7 +162,23 @@ public class AccountCreation extends AppCompatActivity {
                     commentaireEditText.setVisibility(View.GONE);
                     passwordLabel.setVisibility(View.GONE);
                     passwordEditText.setVisibility(View.GONE);
-                    submitButton.setVisibility(View.VISIBLE);
+                    submitButton.setVisibility(View.GONE);
+
+                    nomEntrepriseLabel.setVisibility(View.VISIBLE);
+                    nomEntrepriseEditText.setVisibility(View.VISIBLE);
+                    numEmployeurLabel.setVisibility(View.VISIBLE);
+                    numEmployeurEditText.setVisibility(View.VISIBLE);
+                    emailEmployeurLabel.setVisibility(View.VISIBLE);
+                    emailEmployeurEditText.setVisibility(View.VISIBLE);
+                    adresseEmployeurLabel.setVisibility(View.VISIBLE);
+                    adresseEmployeurEditText.setVisibility(View.VISIBLE);
+                    villeEmployeurLabel.setVisibility(View.VISIBLE);
+                    villeEmployeurEditText.setVisibility(View.VISIBLE);
+                    liensPublicsEmployeurLabel.setVisibility(View.VISIBLE);
+                    liensPublicsEmployeurEditText.setVisibility(View.VISIBLE);
+                    passwordEmployeurLabel.setVisibility(View.VISIBLE);
+                    passwordEmployeurEditText.setVisibility(View.VISIBLE);
+                    submitEmployeurButton.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -121,7 +188,21 @@ public class AccountCreation extends AppCompatActivity {
             public void onClick(View v) {
                 // Si un editText est empty on ne peut pas ajouter le user
                 if(!nomEditText.getText().toString().isEmpty() && !prenomEditText.getText().toString().isEmpty() && !emailEditText.getText().toString().isEmpty() && !passwordEditText.getText().toString().isEmpty()) {
-                    addUser();
+                    addCandidat();
+                    startActivity(new Intent(AccountCreation.this, Connection.class));
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Creation fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        submitEmployeurButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Si un editText est empty on ne peut pas ajouter le user
+                if(!nomEntrepriseEditText.getText().toString().isEmpty() && !emailEmployeurEditText.getText().toString().isEmpty() && !passwordEmployeurEditText.getText().toString().isEmpty()) {
+                    addEmployeur();
                     startActivity(new Intent(AccountCreation.this, Connection.class));
                 }
                 else{
@@ -131,7 +212,7 @@ public class AccountCreation extends AppCompatActivity {
         });
     }
 
-    private void addUser() {
+    private void addCandidat() {
         // Create a new user object
         Map<String, Object> user = new HashMap<>();
         user.put("name", nomEditText.getText().toString());
@@ -156,7 +237,34 @@ public class AccountCreation extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Creation successful", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(getApplicationContext(), "Creation fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Creation fail !!!", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void addEmployeur() {
+        // Create a new user object
+        Map<String, Object> user = new HashMap<>();
+        user.put("nomEntreprise", nomEntrepriseEditText.getText().toString());
+        user.put("telephone", numEmployeurEditText.getText().toString());
+        user.put("email", emailEmployeurEditText.getText().toString());
+        user.put("adresse", adresseEmployeurEditText.getText().toString());
+        user.put("ville", villeEmployeurEditText.getText().toString());
+        user.put("liensPublics", liensPublicsEmployeurEditText.getText().toString());
+        user.put("password", passwordEmployeurEditText.getText().toString());
+
+        selectedId = radioGroup.getCheckedRadioButtonId();
+        selectedRadioButton = findViewById(selectedId);
+        user.put("typeUtilisateur", selectedRadioButton.getText().toString());
+
+        // Add a new document with a generated ID
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(documentReference -> {
+                    // Document added successfully
+                    Toast.makeText(getApplicationContext(), "Creation successful", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getApplicationContext(), "Creation fail !", Toast.LENGTH_SHORT).show();
                 });
     }
 }
