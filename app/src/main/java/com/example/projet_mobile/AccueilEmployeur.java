@@ -21,7 +21,7 @@ public class AccueilEmployeur extends AppCompatActivity {
         buttonOffreCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AccueilEmployeur.this, AccountCreation.class));
+                startActivity(new Intent(AccueilEmployeur.this, OffreCreation.class));
             }
         });
     }

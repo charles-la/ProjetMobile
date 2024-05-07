@@ -3,31 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/rounded_corner"
+    android:layout_marginTop="10dp">
 
     <TextView
         android:id="@+id/companyName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textSize="14sp"
+        android:background="#e6f7ff"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:padding="8dp"
+        android:layout_margin="1dp"/>
 
     <TextView
         android:id="@+id/location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textSize="14sp"
+        android:background="#ffe6cc"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:padding="8dp"
+        android:layout_margin="1dp"/>
 
     <TextView
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textSize="14sp"
+        android:background="#e9e7fd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:padding="8dp"
+        android:layout_margin="1dp"/>
 
     <Button
         android:id="@+id/viewButton"
+        android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#000000"
