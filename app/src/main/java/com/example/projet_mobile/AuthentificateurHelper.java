@@ -3,6 +3,7 @@ package com.example.projet_mobile;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 public class AuthentificateurHelper {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -18,12 +19,14 @@ public class AuthentificateurHelper {
                             for (QueryDocumentSnapshot document : querySnapshot) {
                                 String storedPassword = document.getString("password");
                                 String userType = document.getString("typeUtilisateur");
+                                String userId = document.getId(); // Get the document ID
+
                                 if (storedPassword != null && storedPassword.equals(password)) {
                                     // Check user type and call the appropriate onSuccess method
                                     if ("Candidat".equals(userType)) {
-                                        callback.onSuccessCandidat();
+                                        callback.onSuccessCandidat(userId);
                                     } else if ("Employeur".equals(userType)) {
-                                        callback.onSuccessEmployeur();
+                                        callback.onSuccessEmployeur(userId);
                                     } else {
                                         // User type is neither Candidat nor Employeur or is undefined
                                         callback.onFailure("User type is undefined or incorrect.");

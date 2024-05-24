@@ -21,6 +21,7 @@ public class Connection extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private AuthentificateurHelper authHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,6 @@ public class Connection extends AppCompatActivity {
         }
 
         buttonConnection.setOnClickListener(new View.OnClickListener() {
-            // Ajouter des verifications avec la base de donnees pour voir si lutilisateur existe
             @Override
             public void onClick(View v) {
                 String userEmail = emailEditText.getText().toString();
@@ -59,18 +59,22 @@ public class Connection extends AppCompatActivity {
 
                 authHelper.verifyUserCredentials(userEmail, userPassword, new AuthCallback() {
                     @Override
-                    public void onSuccessCandidat() {
+                    public void onSuccessCandidat(String userId) {
                         // Logic when login is successful
                         Toast.makeText(getApplicationContext(), "Connection candidat successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Connection.this, AccueilCandidat.class);
                         intent.putExtra("userEmail", userEmail);
+                        intent.putExtra("userId", userId);
                         startActivity(intent);
                     }
-                    public void onSuccessEmployeur() {
+
+                    @Override
+                    public void onSuccessEmployeur(String userId) {
                         // Logic when login is successful
                         Toast.makeText(getApplicationContext(), "Connection employeur successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Connection.this, AccueilEmployeur.class);
                         intent.putExtra("userEmail", userEmail);
+                        intent.putExtra("userId", userId);
                         startActivity(intent);
                     }
 

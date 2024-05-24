@@ -60,10 +60,12 @@ public class AccueilEmployeur extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         List<Job> jobs = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            jobs.add(document.toObject(Job.class));
+                            Job job = document.toObject(Job.class);
+                            job.setId(document.getId()); // Set the document ID
+                            jobs.add(job);
                         }
                         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                        JobAdapter adapter = new JobAdapter(jobs);
+                        JobAdapter adapter = new JobAdapter(jobs, userEmail, null); // Pass userEmail and null for userId
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(this));
                     } else {

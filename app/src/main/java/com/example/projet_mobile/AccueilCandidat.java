@@ -26,6 +26,7 @@ public class AccueilCandidat extends AppCompatActivity {
     private Button buttonGestionCandidature;
     private FirebaseFirestore db;
     private String userEmail;
+    private String userId; // Add userId field
     private EditText searchEditText;
     private JobAdapter jobAdapter;
     private List<Job> jobList;
@@ -41,10 +42,14 @@ public class AccueilCandidat extends AppCompatActivity {
         searchEditText = findViewById(R.id.searchEditText);
         jobList = new ArrayList<>();
 
-        // Get the passed email from the intent
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("userEmail")) {
-            userEmail = intent.getStringExtra("userEmail");
+        if (intent != null) {
+            if (intent.hasExtra("userEmail")) {
+                userEmail = intent.getStringExtra("userEmail");
+            }
+            if (intent.hasExtra("userId")) {
+                userId = intent.getStringExtra("userId"); // Get userId from intent
+            }
         }
 
         if (userEmail == null) {
@@ -53,27 +58,24 @@ public class AccueilCandidat extends AppCompatActivity {
             buttonAccountCreation.setVisibility(View.GONE);
         }
 
-        buttonAccountCreation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AccueilCandidat.this, AccountCreation.class));
-            }
-        });
-        buttonDeconnexion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AccueilCandidat.this, Connection.class));
-            }
-        });
+        buttonAccountCreation.setOnClickListener(v ->
+                startActivity(new Intent(AccueilCandidat.this, AccountCreation.class))
+        );
+
+        buttonDeconnexion.setOnClickListener(v ->
+                startActivity(new Intent(AccueilCandidat.this, Connection.class))
+        );
+
+        buttonGestionCandidature.setOnClickListener(v ->
+                startActivity(new Intent(AccueilCandidat.this, GestionCandidature.class))
+        );
 
         initFirestore();
         loadJobOffers();
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Pas utilisé ici
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -81,9 +83,7 @@ public class AccueilCandidat extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                // Pas utilisé ici
-            }
+            public void afterTextChanged(Editable s) {}
         });
     }
 
@@ -98,10 +98,12 @@ public class AccueilCandidat extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         jobList = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            jobList.add(document.toObject(Job.class));
+                            Job job = document.toObject(Job.class);
+                            job.setId(document.getId()); // Set the document ID
+                            jobList.add(job);
                         }
                         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                        jobAdapter = new JobAdapter(jobList);
+                        jobAdapter = new JobAdapter(jobList, userEmail, userId); // Pass userId to JobAdapter
                         recyclerView.setAdapter(jobAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(this));
                     } else {

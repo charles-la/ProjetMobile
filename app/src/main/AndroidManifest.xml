@@ -16,6 +16,9 @@
         android:theme="@style/Theme.ProjetMobile"
         tools:targetApi="31">
         <activity
+            android:name=".GestionCandidature"
+            android:exported="false" />
+        <activity
             android:name=".OffreCreation"
             android:exported="false" />
         <activity

@@ -6,16 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     private List<Job> jobList;
+    private String userEmail;
+    private String userId; // Add userId field
+    private FirebaseFirestore db;
 
-    public JobAdapter(List<Job> jobList) {
+    public JobAdapter(List<Job> jobList, String userEmail, String userId) {
         this.jobList = jobList;
+        this.userEmail = userEmail;
+        this.userId = userId; // Initialize userId
+        this.db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -34,6 +45,23 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         holder.money.setText(job.getRemuneration());
         holder.date.setText(job.getDate());
         holder.metier.setText(job.getMetierCible());
+
+        holder.viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.showJobDetailDialog(
+                        holder.itemView,
+                        job.getCompanyName(),
+                        job.getCreatedBy(),
+                        job.getLocation(),
+                        job.getRemuneration(),
+                        job.getDate(),
+                        job.getMetierCible(),
+                        userEmail,
+                        job.getId() // Pass the document ID
+                );
+            }
+        });
     }
 
     @Override
@@ -46,7 +74,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         notifyDataSetChanged();
     }
 
-    public static class JobViewHolder extends RecyclerView.ViewHolder {
+    public class JobViewHolder extends RecyclerView.ViewHolder {
         TextView companyName, createdBy, location, money, date, metier;
         Button viewButton;
 
@@ -59,18 +87,12 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             date = itemView.findViewById(R.id.date);
             metier = itemView.findViewById(R.id.metier);
             viewButton = itemView.findViewById(R.id.viewButton);
-
-            viewButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showJobDetailDialog(itemView, companyName.getText().toString(), createdBy.getText().toString(), location.getText().toString(), money.getText().toString(), date.getText().toString(), metier.getText().toString());
-                }
-            });
         }
 
-        private void showJobDetailDialog(View anchorView, String companyName, String createdBy, String location, String money, String date, String metier) {
+        private void showJobDetailDialog(View anchorView, String companyName, String createdBy, String location, String money, String date, String metier, String userEmail, String jobId) {
             final Dialog dialog = new Dialog(anchorView.getContext());
             dialog.setContentView(R.layout.job_detail_dialog);
+
             TextView dialogCompanyName = dialog.findViewById(R.id.dialogCompanyName);
             TextView dialogCreatedBy = dialog.findViewById(R.id.dialogCreatedBy);
             TextView dialogLocation = dialog.findViewById(R.id.dialogLocation);
@@ -78,13 +100,21 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             TextView dialogDate = dialog.findViewById(R.id.dialogDate);
             TextView dialogMetier = dialog.findViewById(R.id.dialogMetier);
             Button closeButton = dialog.findViewById(R.id.dialogCloseButton);
+            Button applicationButton = dialog.findViewById(R.id.dialogApplyButton);
 
-            dialogCompanyName.setText(companyName);
-            dialogCreatedBy.setText(createdBy);
-            dialogLocation.setText(location);
-            dialogMoney.setText(money);
-            dialogDate.setText(date);
-            dialogMetier.setText(metier);
+            if (userEmail == null) {
+                applicationButton.setVisibility(View.GONE);
+            } else {
+                checkIfAlreadyApplied(jobId, applicationButton);
+            }
+
+            dialogCompanyName.setText("Nom de la compagnie : " + companyName);
+            dialogCreatedBy.setText("Email : " + createdBy);
+            dialogLocation.setText("Lieu : " + location);
+            dialogMoney.setText("Salaire : " + money);
+            dialogDate.setText("Date : " + date);
+            dialogMetier.setText("Métier : " + metier);
+
 
             closeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,7 +123,62 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
                 }
             });
 
+            applicationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    applyForJob(jobId);
+                }
+            });
+
             dialog.show();
+        }
+
+        private void checkIfAlreadyApplied(String jobId, Button applicationButton) {
+            db.collection("offres")
+                    .document(jobId)
+                    .collection("candidatId")
+                    .whereEqualTo("email", userEmail)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (!querySnapshot.isEmpty()) {
+                                applicationButton.setVisibility(View.GONE);
+                            }
+                        } else {
+                            Toast.makeText(itemView.getContext(), "Error checking application status.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
+        private void applyForJob(String jobId) {
+            Map<String, Object> application = new HashMap<>();
+            application.put("email", userEmail);
+
+            db.collection("offres")
+                    .document(jobId)
+                    .collection("candidatId")
+                    .add(application)
+                    .addOnSuccessListener(documentReference -> {
+                        addJobToUserApplications(jobId);
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(itemView.getContext(), "Application failed!", Toast.LENGTH_SHORT).show());
+        }
+
+        private void addJobToUserApplications(String jobId) {
+            Map<String, Object> jobApplication = new HashMap<>();
+            jobApplication.put("jobId", jobId);
+
+            // Use userId instead of userEmail to reference the correct user document
+            db.collection("users")
+                    .document(userId) // Correctly reference the user document by ID
+                    .collection("offreId")
+                    .add(jobApplication)
+                    .addOnSuccessListener(documentReference ->
+                            Toast.makeText(itemView.getContext(), "Application successful", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e ->
+                            Toast.makeText(itemView.getContext(), "Failed to add job to user applications", Toast.LENGTH_SHORT).show());
         }
     }
 }
