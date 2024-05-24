@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:id="@+id/fields_name_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,34 +57,93 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonGestionCandidature"
+    <LinearLayout
+        android:id="@+id/fields_name_label_row2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#000000"
-        android:layout_above="@id/buttonDeconnexion"
-        android:text="Gestion des Candidatures" />
-    <Button
-        android:id="@+id/buttonDeconnexion"
+        android:orientation="horizontal"
+        android:layout_below="@id/fields_name_label"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/createdBy"
+            android:text="Creer Par"
+            android:background="#ffd1dc"
+            android:layout_margin="1dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/Money"
+            android:background="#d2f8d2"
+            android:layout_margin="1dp"
+            android:text="Remuneration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/Metier"
+            android:background="#fef4cc"
+            android:layout_margin="1dp"
+            android:text="Metier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#000000"
-        android:layout_above="@id/buttonCreateAccount"
-        android:text="Déconnexion" />
-    <Button
-        android:id="@+id/buttonCreateAccount"
+        android:hint="Rechercher par nom de compagnie"
+        android:layout_below="@id/fields_name_label_row2"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_corner" />
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#000000"
         android:layout_alignParentBottom="true"
-        android:text="Création d'un compte" />
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonGestionCandidature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:text="Gestion des Candidatures" />
+
+        <Button
+            android:id="@+id/buttonCreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:text="Création d'un compte" />
+
+        <Button
+            android:id="@+id/buttonDeconnexion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:text="Déconnexion" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@id/buttonCreateAccount"
-        android:layout_marginTop="0dp"
-        android:layout_below="@id/fields_name_label" />
+        android:layout_above="@id/buttonsLayout"
+        android:layout_below="@id/searchEditText" />
 
 </RelativeLayout>

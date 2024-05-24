@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
-    <!-- Label for TP3 -->
     <TextView
         android:id="@+id/title_label"
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:layout_marginTop="50dp"/>
 
     <TextView
-        android:id="@+id/nom_entreprise_label"
+        android:id="@+id/company_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -27,11 +27,11 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/nom_entreprise_edit_text"
+        android:id="@+id/company_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nom Entreprise"
-        android:layout_below="@id/nom_entreprise_label"
+        android:layout_below="@id/company_name_label"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
@@ -39,23 +39,23 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/telephone_employeur_label"
+        android:id="@+id/description_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/nom_entreprise_edit_text"
-        android:text="Telephone"
+        android:layout_below="@id/company_name_edit_text"
+        android:text="Description"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/telephone_employeur_edit_text"
+        android:id="@+id/description_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Telephone"
-        android:layout_below="@id/telephone_employeur_label"
+        android:hint="Description"
+        android:layout_below="@id/description_label"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
@@ -63,23 +63,23 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/mail_employeur_label"
+        android:id="@+id/location_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/telephone_employeur_edit_text"
-        android:text="Email"
+        android:layout_below="@id/description_edit_text"
+        android:text="Location"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/mail_employeur_edit_text"
+        android:id="@+id/location_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:layout_below="@id/mail_employeur_label"
+        android:hint="Location"
+        android:layout_below="@id/location_label"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
@@ -87,23 +87,23 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/adresse_employeur_label"
+        android:id="@+id/period_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/mail_employeur_edit_text"
-        android:text="Adresse"
+        android:layout_below="@id/location_edit_text"
+        android:text="Periode"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/adresse_employeur_edit_text"
+        android:id="@+id/period_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Adresse"
-        android:layout_below="@id/adresse_employeur_label"
+        android:hint="Periode"
+        android:layout_below="@id/period_label"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
@@ -111,23 +111,23 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/ville_employeur_label"
+        android:id="@+id/money_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/adresse_employeur_edit_text"
-        android:text="Ville"
+        android:layout_below="@id/period_edit_text"
+        android:text="Remuneration"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/ville_employeur_edit_text"
+        android:id="@+id/money_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ville"
-        android:layout_below="@id/ville_employeur_label"
+        android:hint="Remuneration"
+        android:layout_below="@id/money_label"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
@@ -135,81 +135,42 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/liens_publics_employeur_label"
+        android:id="@+id/metier_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/ville_employeur_edit_text"
-        android:text="Liens publics"
+        android:layout_below="@id/money_edit_text"
+        android:text="Metier Cible"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/liens_publics_employeur_edit_text"
+        android:id="@+id/metier_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Liens publics"
-        android:layout_below="@id/liens_publics_employeur_label"
+        android:hint="Metier Cible"
+        android:layout_below="@id/metier_label"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColorHint="@color/black"
         android:background="@drawable/rounded_corner"
         android:padding="10dp" />
 
-    <TextView
-        android:id="@+id/password_employeur_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/liens_publics_employeur_edit_text"
-        android:text="Password"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/password_employeur_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:layout_below="@id/password_employeur_label"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"/>
-
-    <!-- Bouton pour soumettre les données -->
+    <!-- Button to submit the data -->
     <Button
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Creation"
-        android:backgroundTint="#000000"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_alignParentRight="true"
+        android:layout_below="@id/metier_edit_text"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/password_employeur_edit_text" />
-
-    <Button
-        android:id="@+id/submit_employeur_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Creation"
-        android:backgroundTint="#000000"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/password_employeur_edit_text"
-        android:visibility="gone" />
+        android:layout_centerInParent="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#000000"
+        android:text="Creation" />
 
 </RelativeLayout>

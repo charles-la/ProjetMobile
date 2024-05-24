@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:text="Voir"
+            android:text="Test"
             android:gravity="center"/>
     </LinearLayout>
 

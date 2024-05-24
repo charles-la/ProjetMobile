@@ -62,12 +62,16 @@ public class Connection extends AppCompatActivity {
                     public void onSuccessCandidat() {
                         // Logic when login is successful
                         Toast.makeText(getApplicationContext(), "Connection candidat successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Connection.this, AccueilCandidat.class));
+                        Intent intent = new Intent(Connection.this, AccueilCandidat.class);
+                        intent.putExtra("userEmail", userEmail);
+                        startActivity(intent);
                     }
                     public void onSuccessEmployeur() {
                         // Logic when login is successful
                         Toast.makeText(getApplicationContext(), "Connection employeur successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Connection.this, AccueilEmployeur.class));
+                        Intent intent = new Intent(Connection.this, AccueilEmployeur.class);
+                        intent.putExtra("userEmail", userEmail);
+                        startActivity(intent);
                     }
 
                     @Override

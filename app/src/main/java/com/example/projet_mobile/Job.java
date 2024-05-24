@@ -4,16 +4,17 @@ public class Job {
     private String id;
     private String companyName;
     private String location;
-    private String date;
-    private String description;    // New field
-    private String remuneration;   // New field
-    private String metierCible;    // New field
+    private String date; // This should match the key used in addOffre
+    private String description;
+    private String remuneration; // This should match the key used in addOffre
+    private String metierCible;
+    private String createdBy;
 
     public Job() {
         // Constructor needed for Firebase
     }
 
-    public Job(String id, String companyName, String location, String date, String description, String remuneration, String metierCible) {
+    public Job(String id, String companyName, String location, String date, String description, String remuneration, String metierCible, String createdBy) {
         this.id = id;
         this.companyName = companyName;
         this.location = location;
@@ -21,6 +22,7 @@ public class Job {
         this.description = description;
         this.remuneration = remuneration;
         this.metierCible = metierCible;
+        this.createdBy = createdBy;
     }
 
     // Getters and setters for each attribute
@@ -78,5 +80,13 @@ public class Job {
 
     public void setMetierCible(String metierCible) {
         this.metierCible = metierCible;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }
