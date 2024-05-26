@@ -1,5 +1,7 @@
 package com.example.projet_mobile;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -44,11 +46,14 @@ public class EmployeurAdapter extends RecyclerView.Adapter<EmployeurAdapter.Empl
         holder.email.setText(job.getCreatedBy());
 
         holder.candidatureButton.setOnClickListener(v -> {
-            // Handle candidature button click
+            Intent intent = new Intent(context, CandidatureEnCours.class);
+            intent.putExtra("jobId", job.getId()); // Pass the jobId as an extra
+            context.startActivity(intent);
         });
 
+
         holder.acceptButton.setOnClickListener(v -> {
-            // Handle accept button click
+            context.startActivity(new Intent(context, CandidatureAccepte.class));
         });
 
         holder.editButton.setOnClickListener(v -> {
@@ -96,7 +101,7 @@ public class EmployeurAdapter extends RecyclerView.Adapter<EmployeurAdapter.Empl
             companyName = itemView.findViewById(R.id.companyName);
             email = itemView.findViewById(R.id.email);
             candidatureButton = itemView.findViewById(R.id.CandidatureButton);
-            acceptButton = itemView.findViewById(R.id.deleteButton);
+            acceptButton = itemView.findViewById(R.id.CandidatureAccButton);
             editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
         }

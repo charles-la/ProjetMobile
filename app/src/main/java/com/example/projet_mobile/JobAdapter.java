@@ -157,7 +157,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         private void addJobToUserApplications(String jobId) {
             Map<String, Object> jobApplication = new HashMap<>();
             jobApplication.put("jobId", jobId);
-            jobApplication.put("etat", "Wait");
+            jobApplication.put("etat", "Attente");
 
             db.collection("users")
                     .document(userId)
