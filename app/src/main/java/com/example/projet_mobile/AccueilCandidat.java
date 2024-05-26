@@ -26,7 +26,7 @@ public class AccueilCandidat extends AppCompatActivity {
     private Button buttonGestionCandidature;
     private FirebaseFirestore db;
     private String userEmail;
-    private String userId; // Add userId field
+    private String userId;
     private EditText searchEditText;
     private JobAdapter jobAdapter;
     private List<Job> jobList;
@@ -48,7 +48,7 @@ public class AccueilCandidat extends AppCompatActivity {
                 userEmail = intent.getStringExtra("userEmail");
             }
             if (intent.hasExtra("userId")) {
-                userId = intent.getStringExtra("userId"); // Get userId from intent
+                userId = intent.getStringExtra("userId");
             }
         }
 
@@ -66,9 +66,11 @@ public class AccueilCandidat extends AppCompatActivity {
                 startActivity(new Intent(AccueilCandidat.this, Connection.class))
         );
 
-        buttonGestionCandidature.setOnClickListener(v ->
-                startActivity(new Intent(AccueilCandidat.this, GestionCandidature.class))
-        );
+        buttonGestionCandidature.setOnClickListener(v -> {
+            Intent gestionCandidatureIntent = new Intent(AccueilCandidat.this, GestionCandidature.class);
+            gestionCandidatureIntent.putExtra("userId", userId); // Pass userId
+            startActivity(gestionCandidatureIntent);
+        });
 
         initFirestore();
         loadJobOffers();
@@ -99,7 +101,7 @@ public class AccueilCandidat extends AppCompatActivity {
                         jobList = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Job job = document.toObject(Job.class);
-                            job.setId(document.getId()); // Set the document ID
+                            job.setId(document.getId());
                             jobList.add(job);
                         }
                         RecyclerView recyclerView = findViewById(R.id.recyclerView);

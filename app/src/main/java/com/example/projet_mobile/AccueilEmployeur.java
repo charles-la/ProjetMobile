@@ -19,6 +19,7 @@ import java.util.List;
 public class AccueilEmployeur extends AppCompatActivity {
 
     private Button buttonOffreCreation;
+    private Button buttonDeconnexion;
     private String userEmail;
     private FirebaseFirestore db;
 
@@ -28,6 +29,7 @@ public class AccueilEmployeur extends AppCompatActivity {
         setContentView(R.layout.activity_accueil_employeur);
 
         buttonOffreCreation = findViewById(R.id.buttonCreateOffre);
+        buttonDeconnexion = findViewById(R.id.buttonDeconnexion);
 
         // Get the passed email from the intent
         Intent intent = getIntent();
@@ -43,6 +45,10 @@ public class AccueilEmployeur extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        buttonDeconnexion.setOnClickListener(v ->
+                startActivity(new Intent(AccueilEmployeur.this, Connection.class))
+        );
 
         initFirestore();
         loadJobOffers();
@@ -65,7 +71,7 @@ public class AccueilEmployeur extends AppCompatActivity {
                             jobs.add(job);
                         }
                         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                        JobAdapter adapter = new JobAdapter(jobs, userEmail, null); // Pass userEmail and null for userId
+                        EmployeurAdapter adapter = new EmployeurAdapter(jobs, userEmail, AccueilEmployeur.this); // Pass userEmail and context
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(this));
                     } else {

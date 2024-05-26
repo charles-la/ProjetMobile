@@ -27,11 +27,20 @@
         android:layout_marginTop="8dp"/>
 
     <TextView
+        android:id="@+id/dialogDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:layout_below="@id/dialogLocation"
+        android:layout_marginTop="8dp"/>
+
+
+    <TextView
         android:id="@+id/dialogMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Money"
-        android:layout_below="@id/dialogLocation"
+        android:layout_below="@id/dialogDescription"
         android:layout_marginTop="8dp"/>
 
     <TextView
@@ -55,6 +64,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Appliquer"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="#000000"
         android:layout_below="@id/dialogCloseButton"
         android:layout_marginTop="8dp"/>
@@ -64,6 +74,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#000000"
+        android:layout_centerHorizontal="true"
         android:text="Close"
         android:layout_below="@id/dialogMetier"
         android:layout_marginTop="16dp"/>

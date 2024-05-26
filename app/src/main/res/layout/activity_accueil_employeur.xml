@@ -16,13 +16,29 @@
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"/>
 
-    <Button
-        android:id="@+id/buttonCreateOffre"
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#000000"
         android:layout_alignParentBottom="true"
-        android:text="Création d'une offre"/>
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonCreateOffre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:layout_alignParentBottom="true"
+            android:text="Création d'une offre"/>
+
+        <Button
+            android:id="@+id/buttonDeconnexion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:text="Déconnexion" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

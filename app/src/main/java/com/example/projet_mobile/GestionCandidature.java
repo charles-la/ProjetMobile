@@ -6,19 +6,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GestionCandidature extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private String userId;
-    private JobAdapter jobAdapter;
+    private CandidatureAdapter candidatureAdapter;
     private List<Job> jobList;
 
     @Override
@@ -29,8 +32,8 @@ public class GestionCandidature extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         jobList = new ArrayList<>();
-        jobAdapter = new JobAdapter(jobList, null, userId); // userEmail not needed here
-        recyclerView.setAdapter(jobAdapter);
+        candidatureAdapter = new CandidatureAdapter(jobList, null, userId); // userEmail not needed here
+        recyclerView.setAdapter(candidatureAdapter);
 
         db = FirebaseFirestore.getInstance();
 
@@ -73,12 +76,27 @@ public class GestionCandidature extends AppCompatActivity {
                                 Job job = document.toObject(Job.class);
                                 job.setId(document.getId());
                                 jobList.add(job);
-                                jobAdapter.notifyDataSetChanged();
+                                candidatureAdapter.notifyDataSetChanged();
                             }
                         } else {
                             Log.e("GestionCandidature", "Error getting job details: ", task.getException());
                         }
                     });
         }
+    }
+
+    private void addJobToUserApplications(String jobId) {
+        Map<String, Object> jobApplication = new HashMap<>();
+        jobApplication.put("jobId", jobId);
+        jobApplication.put("etat", "Wait");
+
+        db.collection("users")
+                .document(userId)
+                .collection("offreId")
+                .add(jobApplication)
+                .addOnSuccessListener(documentReference ->
+                        Toast.makeText(GestionCandidature.this, "Application successful", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(GestionCandidature.this, "Failed to add job to user applications", Toast.LENGTH_SHORT).show());
     }
 }

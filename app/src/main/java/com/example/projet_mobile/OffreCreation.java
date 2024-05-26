@@ -24,6 +24,7 @@ public class OffreCreation extends AppCompatActivity {
     private EditText metierEditText;
     private Button submitButton;
     private String userEmail;
+    private String jobId; // Add a field to hold the job ID
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +41,21 @@ public class OffreCreation extends AppCompatActivity {
         metierEditText = findViewById(R.id.metier_edit_text);
         submitButton = findViewById(R.id.submit_button);
 
-        // Get the passed email from the intent
+        // Get the passed email and job data from the intent
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("userEmail")) {
-            userEmail = intent.getStringExtra("userEmail");
+        if (intent != null) {
+            if (intent.hasExtra("userEmail")) {
+                userEmail = intent.getStringExtra("userEmail");
+            }
+            if (intent.hasExtra("jobId")) {
+                jobId = intent.getStringExtra("jobId");
+                companyNameEditText.setText(intent.getStringExtra("companyName"));
+                descriptionEditText.setText(intent.getStringExtra("description"));
+                locationEditText.setText(intent.getStringExtra("location"));
+                periodEditText.setText(intent.getStringExtra("period"));
+                moneyEditText.setText(intent.getStringExtra("money"));
+                metierEditText.setText(intent.getStringExtra("metier"));
+            }
         }
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -56,12 +68,16 @@ public class OffreCreation extends AppCompatActivity {
                         !moneyEditText.getText().toString().isEmpty() &&
                         !metierEditText.getText().toString().isEmpty()) {
 
-                    addOffre();
+                    if (jobId != null) {
+                        updateOffre(jobId);
+                    } else {
+                        addOffre();
+                    }
                     Intent intent = new Intent(OffreCreation.this, AccueilEmployeur.class);
                     intent.putExtra("userEmail", userEmail);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Creation/Update failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -85,5 +101,25 @@ public class OffreCreation extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Creation successful", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e ->
                         Toast.makeText(getApplicationContext(), "Creation failed!", Toast.LENGTH_SHORT).show());
+    }
+
+    private void updateOffre(String jobId) {
+        Map<String, Object> offre = new HashMap<>();
+        offre.put("companyName", companyNameEditText.getText().toString());
+        offre.put("description", descriptionEditText.getText().toString());
+        offre.put("location", locationEditText.getText().toString());
+        offre.put("date", periodEditText.getText().toString());
+        offre.put("remuneration", moneyEditText.getText().toString());
+        offre.put("metierCible", metierEditText.getText().toString());
+        if (userEmail != null) {
+            offre.put("createdBy", userEmail);
+        }
+
+        db.collection("offres").document(jobId)
+                .set(offre)
+                .addOnSuccessListener(aVoid ->
+                        Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(getApplicationContext(), "Update failed!", Toast.LENGTH_SHORT).show());
     }
 }

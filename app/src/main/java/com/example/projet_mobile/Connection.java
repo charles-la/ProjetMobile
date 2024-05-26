@@ -90,6 +90,7 @@ public class Connection extends AppCompatActivity {
         buttonAnonyme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Connection anonyme successful", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Connection.this, AccueilCandidat.class));
             }
         });

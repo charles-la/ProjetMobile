@@ -11,8 +11,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <TextView
@@ -23,80 +21,58 @@
             android:background="#e6f7ff"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:padding="8dp"
-            android:gravity="center"
             android:layout_margin="1dp"/>
 
         <TextView
-            android:id="@+id/email"
+            android:id="@+id/etat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:background="#e6f7ff"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:padding="8dp"
-            android:gravity="center"
             android:layout_margin="1dp"/>
 
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_gravity="center_vertical">
 
         <Button
-            android:id="@+id/CandidatureButton"
+            android:id="@+id/acceptButton"
             android:textSize="10sp"
-            android:layout_width="140dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#148A34"
-            android:text="Candidature\n(en cours)"
+            android:text="Accepter"
             android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
             android:gravity="center"/>
 
         <Button
-            android:id="@+id/CandidatureAccButton"
+            android:id="@+id/denieButton"
             android:textSize="10sp"
-            android:layout_width="140dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#D51A1B"
             android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:text="Candidature\n(accepte)"
-            android:gravity="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
-
-        <Button
-            android:id="@+id/editButton"
-            android:textSize="10sp"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:text="Edit"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
+            android:text="Refu"
             android:gravity="center"/>
 
         <Button
-            android:id="@+id/deleteButton"
+            android:id="@+id/contactButton"
             android:textSize="10sp"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:text="Delete"
+            android:text="Contact"
             android:gravity="center"/>
+
     </LinearLayout>
 
 </LinearLayout>
