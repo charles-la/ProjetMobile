@@ -1,5 +1,9 @@
 package com.example.projet_mobile;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class Job {
     private String id;
     private String companyName;
@@ -88,5 +92,15 @@ public class Job {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    // Method to get job etat for a specific userId
+    public static void getJobEtat(String jobId, String userId, FirebaseFirestore db, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("offres")
+                .document(jobId)
+                .collection("candidatId")
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnCompleteListener(onCompleteListener);
     }
 }

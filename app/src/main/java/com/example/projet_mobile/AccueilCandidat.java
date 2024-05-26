@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -31,11 +33,14 @@ public class AccueilCandidat extends AppCompatActivity {
     private JobAdapter jobAdapter;
     private List<Job> jobList;
 
+    private ImageButton modifierProfilButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil_candidat);
 
+        modifierProfilButton = findViewById(R.id.modifierProfil);
         buttonAccountCreation = findViewById(R.id.buttonCreateAccount);
         buttonDeconnexion = findViewById(R.id.buttonDeconnexion);
         buttonGestionCandidature = findViewById(R.id.buttonGestionCandidature);
@@ -70,6 +75,13 @@ public class AccueilCandidat extends AppCompatActivity {
             Intent gestionCandidatureIntent = new Intent(AccueilCandidat.this, GestionCandidature.class);
             gestionCandidatureIntent.putExtra("userId", userId); // Pass userId
             startActivity(gestionCandidatureIntent);
+        });
+
+        modifierProfilButton.setOnClickListener(v -> {
+            Intent modifierProfilIntent = new Intent(AccueilCandidat.this, AccountCreation.class);
+            modifierProfilIntent.putExtra("userEmail", userEmail);
+            modifierProfilIntent.putExtra("userId", userId);
+            startActivity(modifierProfilIntent);
         });
 
         initFirestore();

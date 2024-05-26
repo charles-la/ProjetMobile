@@ -102,6 +102,18 @@ public class AccountCreation extends AppCompatActivity {
         passwordEmployeurEditText = findViewById(R.id.password_employeur_edit_text);
         submitEmployeurButton = findViewById(R.id.submit_employeur_button);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("userEmail")) {
+                String userEmail = intent.getStringExtra("userEmail");
+                emailEditText.setText(userEmail);
+            }
+            if (intent.hasExtra("userId")) {
+                String userId = intent.getStringExtra("userId");
+                // Utiliser userId comme nécessaire
+            }
+        }
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

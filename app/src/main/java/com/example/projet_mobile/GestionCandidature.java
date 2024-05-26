@@ -29,20 +29,21 @@ public class GestionCandidature extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gestion_candidature);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        jobList = new ArrayList<>();
-        candidatureAdapter = new CandidatureAdapter(jobList, null, userId); // userEmail not needed here
-        recyclerView.setAdapter(candidatureAdapter);
-
-        db = FirebaseFirestore.getInstance();
-
         if (getIntent().hasExtra("userId")) {
             userId = getIntent().getStringExtra("userId");
-            loadUserApplications();
         } else {
             Log.e("GestionCandidature", "No userId passed in intent");
         }
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        jobList = new ArrayList<>();
+        candidatureAdapter = new CandidatureAdapter(jobList, null, userId,this); // userEmail not needed here
+        recyclerView.setAdapter(candidatureAdapter);
+
+        db = FirebaseFirestore.getInstance();
+        loadUserApplications();
+
     }
 
     private void loadUserApplications() {

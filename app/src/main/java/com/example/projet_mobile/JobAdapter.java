@@ -1,6 +1,7 @@
 package com.example.projet_mobile;
 
 import android.app.Dialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -141,6 +144,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         private void applyForJob(String jobId) {
             Map<String, Object> application = new HashMap<>();
             application.put("userId", userId);
+            application.put("etat", "wait"); // Add this line to set the status to "wait"
 
             db.collection("offres")
                     .document(jobId)
