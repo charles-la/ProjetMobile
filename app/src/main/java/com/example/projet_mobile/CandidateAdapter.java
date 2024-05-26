@@ -38,9 +38,10 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
     public void onBindViewHolder(@NonNull CandidateViewHolder holder, int position) {
         Candidat candidate = candidateList.get(position);
         holder.userIdTextView.setText(candidate.getUserId());
+        holder.userNameTextView.setText(candidate.getName());
         holder.etatTextView.setText(candidate.getEtat());
-
-        holder.candidatureButton.setOnClickListener(v -> updateCandidateStatus(candidate, "Accepter"));
+        holder.refuserButton.setOnClickListener(v -> updateCandidateStatus(candidate, "Refuser"));
+        holder.accepterButton.setOnClickListener(v -> updateCandidateStatus(candidate, "Accepter"));
     }
 
     @Override
@@ -50,14 +51,18 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
 
     public class CandidateViewHolder extends RecyclerView.ViewHolder {
         TextView userIdTextView;
+        TextView userNameTextView;
         TextView etatTextView;
-        Button candidatureButton;
+        Button accepterButton;
+        Button refuserButton;
 
         public CandidateViewHolder(@NonNull View itemView) {
             super(itemView);
             userIdTextView = itemView.findViewById(R.id.userIdTextView);
+            userNameTextView = itemView.findViewById(R.id.userNameTextView);
             etatTextView = itemView.findViewById(R.id.etatTextView);
-            candidatureButton = itemView.findViewById(R.id.CandidatureButton);
+            accepterButton = itemView.findViewById(R.id.AccepterButton);
+            refuserButton = itemView.findViewById(R.id.RefuserButton);
         }
     }
 

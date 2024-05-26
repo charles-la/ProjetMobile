@@ -133,7 +133,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
                             if (!querySnapshot.isEmpty()) {
-                                applicationButton.setVisibility(View.GONE);
+                                //applicationButton.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(itemView.getContext(), "Error checking application status.", Toast.LENGTH_SHORT).show();
@@ -144,7 +144,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         private void applyForJob(String jobId) {
             Map<String, Object> application = new HashMap<>();
             application.put("userId", userId);
-            application.put("etat", "wait"); // Add this line to set the status to "wait"
+            application.put("etat", "Attente");
 
             db.collection("offres")
                     .document(jobId)

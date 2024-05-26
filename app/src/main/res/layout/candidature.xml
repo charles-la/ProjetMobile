@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"> <!-- Masqué initialement -->
+        android:visibility="visible"> <!-- Masqué initialement -->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -24,10 +24,9 @@
                 android:id="@+id/companyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:background="#e6f7ff"
+                android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:padding="8dp"
+                android:padding="2dp"
                 android:layout_margin="1dp"/>
 
             <TextView
@@ -37,7 +36,7 @@
                 android:textSize="14sp"
                 android:background="#ffd1dc"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:padding="8dp"
+                android:padding="2dp"
                 android:layout_margin="1dp"/>
         </LinearLayout>
 

@@ -3,13 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/rounded_corner"
+    android:padding="16dp"
+    android:layout_marginTop="10dp">
 
     <TextView
         android:id="@+id/userIdTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User ID" />
+
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="User Name" />
 
     <TextView
         android:id="@+id/etatTextView"
@@ -21,22 +30,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_gravity="center_vertical">
 
         <Button
-            android:id="@+id/CandidatureButton"
+            android:id="@+id/AccepterButton"
             android:textSize="10sp"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#148A34"
             android:text="Accepter"
             android:layout_marginStart="3dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginEnd="3dp"
             android:gravity="center"/>
 
         <Button
-            android:id="@+id/CandidatureAccButton"
+            android:id="@+id/RefuserButton"
             android:textSize="10sp"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
@@ -44,6 +54,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
             android:text="Refuser"
+            android:layout_centerHorizontal="true"
             android:gravity="center"/>
     </LinearLayout>
 

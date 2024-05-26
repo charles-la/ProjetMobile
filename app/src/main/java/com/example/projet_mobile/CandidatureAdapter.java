@@ -76,14 +76,14 @@ public class CandidatureAdapter extends RecyclerView.Adapter<CandidatureAdapter.
                                 holder.etat.setText(etat);
                                 Log.d(TAG, "Etat: " + etat + " for userId: " + userId);
                                 // Set button visibility based on etat
-                                if (etat.equals("Attente")) {
-                                    holder.acceptButton.setVisibility(View.GONE);
-                                    holder.denieButton.setVisibility(View.GONE);
-                                    holder.contactButton.setVisibility(View.GONE);
-                                } else {
+                                if (etat.equals("Accepter")) {
                                     holder.acceptButton.setVisibility(View.VISIBLE);
                                     holder.denieButton.setVisibility(View.VISIBLE);
                                     holder.contactButton.setVisibility(View.VISIBLE);
+                                } else {
+                                    holder.acceptButton.setVisibility(View.GONE);
+                                    holder.denieButton.setVisibility(View.GONE);
+                                    holder.contactButton.setVisibility(View.GONE);
                                 }
                             } else {
                                 holder.etat.setText("No status found");
