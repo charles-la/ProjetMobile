@@ -49,8 +49,8 @@
 
             <Button
                 android:id="@+id/acceptButton"
-                android:textSize="10sp"
-                android:layout_width="90dp"
+                android:textSize="9sp"
+                android:layout_width="87dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#148A34"
                 android:text="Accepter"
@@ -60,8 +60,8 @@
 
             <Button
                 android:id="@+id/denieButton"
-                android:textSize="10sp"
-                android:layout_width="90dp"
+                android:textSize="9sp"
+                android:layout_width="82dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#D51A1B"
                 android:layout_marginStart="3dp"
@@ -71,8 +71,8 @@
 
             <Button
                 android:id="@+id/contactButton"
-                android:textSize="10sp"
-                android:layout_width="90dp"
+                android:textSize="9sp"
+                android:layout_width="82dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
                 android:layout_marginStart="3dp"

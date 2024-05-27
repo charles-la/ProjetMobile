@@ -1,7 +1,6 @@
 package com.example.projet_mobile;
 
 import android.app.Dialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,7 +96,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             TextView dialogMoney = dialog.findViewById(R.id.dialogMoney);
             TextView dialogDate = dialog.findViewById(R.id.dialogDate);
             TextView dialogMetier = dialog.findViewById(R.id.dialogMetier);
-            TextView dialogDescription = dialog.findViewById(R.id.dialogDescription); // Add this line
+            TextView dialogDescription = dialog.findViewById(R.id.dialogDescription);
             Button closeButton = dialog.findViewById(R.id.dialogCloseButton);
             Button applicationButton = dialog.findViewById(R.id.dialogApplyButton);
 
@@ -118,7 +116,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
             closeButton.setOnClickListener(v -> dialog.dismiss());
 
-            applicationButton.setOnClickListener(v -> applyForJob(jobId));
+            applicationButton.setOnClickListener(v -> applyForJob(jobId, applicationButton));
 
             dialog.show();
         }
@@ -133,15 +131,17 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
                             if (!querySnapshot.isEmpty()) {
-                                //applicationButton.setVisibility(View.GONE);
+                                // Inform the user that they have already applied
+                                Toast.makeText(itemView.getContext(), "Vous avez déjà postulé pour cette offre.", Toast.LENGTH_SHORT).show();
+                                applicationButton.setVisibility(View.GONE);
                             }
                         } else {
-                            Toast.makeText(itemView.getContext(), "Error checking application status.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(itemView.getContext(), "Erreur lors de la vérification du statut de la candidature.", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
 
-        private void applyForJob(String jobId) {
+        private void applyForJob(String jobId, Button applicationButton) {
             Map<String, Object> application = new HashMap<>();
             application.put("userId", userId);
             application.put("etat", "Attente");
@@ -150,8 +150,11 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
                     .document(jobId)
                     .collection("candidatId")
                     .add(application)
-                    .addOnSuccessListener(documentReference -> addJobToUserApplications(jobId))
-                    .addOnFailureListener(e -> Toast.makeText(itemView.getContext(), "Application failed!", Toast.LENGTH_SHORT).show());
+                    .addOnSuccessListener(documentReference -> {
+                        addJobToUserApplications(jobId);
+                        applicationButton.setVisibility(View.GONE);
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(itemView.getContext(), "Échec de l'envoi de la candidature !", Toast.LENGTH_SHORT).show());
         }
 
         private void addJobToUserApplications(String jobId) {
@@ -163,8 +166,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
                     .document(userId)
                     .collection("offreId")
                     .add(jobApplication)
-                    .addOnSuccessListener(documentReference -> Toast.makeText(itemView.getContext(), "Application successful", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(itemView.getContext(), "Failed to add job to user applications", Toast.LENGTH_SHORT).show());
+                    .addOnSuccessListener(documentReference -> Toast.makeText(itemView.getContext(), "Candidature envoyée avec succès.", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(itemView.getContext(), "Échec de l'ajout de la candidature aux candidatures utilisateur.", Toast.LENGTH_SHORT).show());
         }
     }
 }

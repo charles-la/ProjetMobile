@@ -62,12 +62,6 @@
         android:layout_height="wrap_content"
         android:text="Comment" />
 
-    <TextView
-        android:id="@+id/etatTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,27 +70,15 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:id="@+id/AccepterButton"
+            android:id="@+id/ContactButton"
             android:textSize="10sp"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#148A34"
-            android:text="Accepter"
+            android:backgroundTint="#000000"
+            android:text="Contact"
             android:layout_marginStart="3dp"
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="3dp"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/RefuserButton"
-            android:textSize="10sp"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#D51A1B"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:text="Refuser"
-            android:layout_centerHorizontal="true"
             android:gravity="center"/>
     </LinearLayout>
 </LinearLayout>

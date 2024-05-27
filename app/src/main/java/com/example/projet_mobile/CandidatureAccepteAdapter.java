@@ -16,12 +16,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.CandidateViewHolder> {
+public class CandidatureAccepteAdapter extends RecyclerView.Adapter<CandidatureAccepteAdapter.CandidateViewHolder> {
     private List<Candidat> candidateList;
     private Context context;
     private String jobId;
 
-    public CandidateAdapter(List<Candidat> candidateList, Context context, String jobId) {
+    public CandidatureAccepteAdapter(List<Candidat> candidateList, Context context, String jobId) {
         this.candidateList = candidateList;
         this.context = context;
         this.jobId = jobId;
@@ -30,7 +30,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
     @NonNull
     @Override
     public CandidateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_candidate, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_candidat_accept, parent, false);
         return new CandidateViewHolder(view);
     }
 
@@ -38,12 +38,12 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
     public void onBindViewHolder(@NonNull CandidateViewHolder holder, int position) {
         Candidat candidate = candidateList.get(position);
 
-        if ("Accepter-2".equals(candidate.getEtat()) || "Refuser-2".equals(candidate.getEtat())) {
+        if ("Accepter-2".equals(candidate.getEtat())) {
+            fetchAndBindUserData(holder, candidate.getUserId(), candidate);
+        } else {
             // Masquer la vue du candidat
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-        } else {
-            fetchAndBindUserData(holder, candidate.getUserId(), candidate);
         }
     }
 
@@ -62,9 +62,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
         TextView dateOfBirthTextView;
         TextView cityTextView;
         TextView commentTextView;
-        TextView etatTextView;
-        Button accepterButton;
-        Button refuserButton;
+        Button contactButton;
 
         public CandidateViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,9 +75,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
             dateOfBirthTextView = itemView.findViewById(R.id.dateOfBirthTextView);
             cityTextView = itemView.findViewById(R.id.cityTextView);
             commentTextView = itemView.findViewById(R.id.commentTextView);
-            etatTextView = itemView.findViewById(R.id.etatTextView);
-            accepterButton = itemView.findViewById(R.id.AccepterButton);
-            refuserButton = itemView.findViewById(R.id.RefuserButton);
+            contactButton = itemView.findViewById(R.id.ContactButton);
         }
     }
 
@@ -97,43 +93,11 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
                         holder.dateOfBirthTextView.setText(documentSnapshot.getString("dateDeNaissance"));
                         holder.cityTextView.setText(documentSnapshot.getString("ville"));
                         holder.commentTextView.setText(documentSnapshot.getString("commentaire"));
-                        holder.etatTextView.setText(candidate.getEtat());
-                        holder.refuserButton.setOnClickListener(v -> updateCandidateStatus(candidate, "Refuser"));
-                        holder.accepterButton.setOnClickListener(v -> updateCandidateStatus(candidate, "Accepter"));
+//                        holder.contactButton.setOnClickListener();
                     } else {
                         Toast.makeText(context, "User data not found!", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(context, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-    }
-
-    private void updateCandidateStatus(Candidat candidate, String newStatus) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("offres")
-                .document(jobId)
-                .collection("candidatId")
-                .whereEqualTo("userId", candidate.getUserId())
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        for (DocumentSnapshot document : task.getResult()) {
-                            db.collection("offres")
-                                    .document(jobId)
-                                    .collection("candidatId")
-                                    .document(document.getId())
-                                    .update("etat", newStatus)
-                                    .addOnSuccessListener(aVoid -> {
-                                        candidate.setEtat(newStatus);
-                                        notifyDataSetChanged();
-                                        Toast.makeText(context, "Status updated to " + newStatus, Toast.LENGTH_SHORT).show();
-                                    })
-                                    .addOnFailureListener(e -> Toast.makeText(context, "Failed to update status!", Toast.LENGTH_SHORT).show());
-                        }
-                    } else {
-                        Toast.makeText(context, "Candidate not found!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(e -> Toast.makeText(context, "Error getting documents: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

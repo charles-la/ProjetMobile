@@ -7,17 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -49,7 +48,6 @@ public class CandidatureAdapter extends RecyclerView.Adapter<CandidatureAdapter.
         return new CandidatureViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull CandidatureViewHolder holder, int position) {
         Job job = jobList.get(position);
@@ -76,7 +74,7 @@ public class CandidatureAdapter extends RecyclerView.Adapter<CandidatureAdapter.
                                 holder.etat.setText(etat);
                                 Log.d(TAG, "Etat: " + etat + " for userId: " + userId);
                                 // Set button visibility based on etat
-                                if (etat.equals("Accepter")) {
+                                if (etat.equals("Accepter") || etat.equals("Accepter-2")) {
                                     holder.acceptButton.setVisibility(View.VISIBLE);
                                     holder.denieButton.setVisibility(View.VISIBLE);
                                     holder.contactButton.setVisibility(View.VISIBLE);
@@ -115,11 +113,11 @@ public class CandidatureAdapter extends RecyclerView.Adapter<CandidatureAdapter.
 
         holder.acceptButton.setOnClickListener(v -> {
             Toast.makeText(holder.itemView.getContext(), "Poste accepte", Toast.LENGTH_SHORT).show();
-            handleButtonAction(holder, "Accepted", job.getId());
+            updateCandidateStatus(jobId, "Accepter-2", holder);
         });
         holder.denieButton.setOnClickListener(v -> {
             Toast.makeText(holder.itemView.getContext(), "Poste Refuse", Toast.LENGTH_SHORT).show();
-            handleButtonAction(holder, "Denied", job.getId());
+            updateCandidateStatus(jobId, "Refuser-2", holder);
         });
         holder.contactButton.setOnClickListener(v -> {
             // Handle contact button action separately to start a new activity
@@ -127,24 +125,29 @@ public class CandidatureAdapter extends RecyclerView.Adapter<CandidatureAdapter.
         });
     }
 
+    private void updateCandidateStatus(String jobId, String newStatus, CandidatureViewHolder holder) {
+        CollectionReference candidatsRef = db.collection("offres").document(jobId).collection("candidatId");
 
+        candidatsRef.whereEqualTo("userId", userId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    candidatsRef.document(document.getId())
+                            .update("etat", newStatus)
+                            .addOnSuccessListener(aVoid -> {
+                                holder.etat.setText(newStatus);
+                                Toast.makeText(context, "Status updated to " + newStatus, Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> Toast.makeText(context, "Failed to update status!", Toast.LENGTH_SHORT).show());
+                }
+            } else {
+                Toast.makeText(context, "Candidate not found!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> Toast.makeText(context, "Error getting documents: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
 
     @Override
     public int getItemCount() {
         return jobList.size();
-    }
-
-    private void handleButtonAction(CandidatureViewHolder holder, String action, String jobId) {
-        if (jobId == null) {
-            Log.e(TAG, "Job ID is null for action: " + action);
-            return;
-        }
-        Map<String, Object> update = new HashMap<>();
-        update.put("status", action);
-//        db.collection("jobs").document(jobId)
-//                .update(update)
-//                .addOnSuccessListener(aVoid -> Toast.makeText(holder.itemView.getContext(), action + " successfully", Toast.LENGTH_SHORT).show())
-//                .addOnFailureListener(e -> Toast.makeText(holder.itemView.getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     public void filterList(List<Job> filteredList) {
@@ -159,6 +162,7 @@ public class CandidatureAdapter extends RecyclerView.Adapter<CandidatureAdapter.
         Button denieButton;
         Button contactButton;
         LinearLayout contentLayout;
+
         public CandidatureViewHolder(View itemView) {
             super(itemView);
             companyName = itemView.findViewById(R.id.companyName);
@@ -168,9 +172,5 @@ public class CandidatureAdapter extends RecyclerView.Adapter<CandidatureAdapter.
             contactButton = itemView.findViewById(R.id.contactButton);
             contentLayout = itemView.findViewById(R.id.contentLayout);
         }
-    }
-
-    private interface EtatCallback {
-        void onCallback(String etat);
     }
 }
